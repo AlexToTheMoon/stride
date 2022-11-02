@@ -1,0 +1,98 @@
+[global]
+log_level = 'info'
+
+[mode]
+
+[mode.clients]
+enabled = true
+refresh = true
+misbehaviour = true
+
+[mode.connections]
+enabled = false
+
+[mode.channels]
+enabled = false
+
+[mode.packets]
+enabled = true
+clear_interval = 100
+clear_on_start = true
+tx_confirmation = true
+
+[rest]
+enabled = true
+host = '127.0.0.1'
+port = 3330
+
+[telemetry]
+enabled = true
+host = '127.0.0.1'
+port = 3031
+
+[[chains]]
+### CHAIN_A ###
+id = 'STRIDE-TESTNET-4'
+rpc_addr = 'http://127.0.0.1:26457'
+grpc_addr = 'http://127.0.0.1:9490'
+websocket_addr = 'ws://127.0.0.1:26457/websocket'
+rpc_timeout = '10s'
+account_prefix = 'stride'
+key_name = 'wallet'
+address_type = { derivation = 'cosmos' }
+store_prefix = 'ibc'
+default_gas = 100000
+max_gas = 2500000
+gas_price = { price = 0.001, denom = 'ustrd' }
+gas_multiplier = 1.1
+max_msg_num = 30
+max_tx_size = 2097152
+clock_drift = '5s'
+max_block_time = '30s'
+trusting_period = '8hours'
+trust_threshold = { numerator = '1', denominator = '3' }
+memo_prefix = 'AlexeyM#5409'
+[chains.packet_filter]
+policy = 'allow'
+list = [
+  ['ica*', '*'], # allow relaying on all channels whose port starts with ica
+  ['transfer', 'channel-0'],
+  ['transfer', 'channel-1'],
+  ['transfer', 'channel-2'],
+  ['transfer', 'channel-3'],
+  ['transfer', 'channel-4'],
+  ['transfer', 'channel-5'],
+  ['transfer', 'channel-6'],
+]
+
+[[chains]]
+### CHAIN_B ###
+id = 'GAIA'
+rpc_addr = 'http://127.0.0.1:26617'
+grpc_addr = 'http://127.0.0.1:9890'
+websocket_addr = 'ws://127.0.0.1:26617/websocket'
+rpc_timeout = '10s'
+account_prefix = 'cosmos'
+key_name = 'wallet'
+address_type = { derivation = 'cosmos' }
+store_prefix = 'ibc'
+default_gas = 100000
+max_gas = 2500000
+gas_price = { price = 0.001, denom = 'uatom' }
+gas_multiplier = 1.1
+max_msg_num = 30
+max_tx_size = 2097152
+clock_drift = '5s'
+max_block_time = '30s'
+trusting_period = '8hours'
+trust_threshold = { numerator = '1', denominator = '3' }
+memo_prefix = 'AlexeyM#5409'
+[chains.packet_filter]
+policy = 'allow'
+list = [
+  ['ica*', '*'], # allow relaying on all channels whose port starts with ica
+  ['transfer', 'channel-0'],
+  ['transfer', 'channel-1'],
+  ['transfer', 'channel-2'],
+  ['transfer', 'channel-3'],
+]
